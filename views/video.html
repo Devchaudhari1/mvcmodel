@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video</title>
+</head>
+<body>
+    <h1> Displaying Videos</h1>
+
+    <form enctype="multipart/form-data" id="uploadVideo" >
+        <input type="text" id="name" placeholder="Name">
+        <input type="text" id ="description" placeholder="Description">
+        <input type="file" id ="video">
+        <input type="submit" >
+    </form>
+    <video id="videos" >
+
+        
+    </video>
+    <button id="logout">Log out</button>
+<script src="video.js">
+    const logout = document.getElementByid("logout");
+    const token = localStorage.getItem('token');
+    logout.onclick=() =>{
+        localStorage.removeItem(token);
+    }
+
+</script>
+
+
+</body>
+</html>

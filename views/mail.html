@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Mail test</h1>
+    <button id="mail">Mail</button>
+    <script>
+        const token =localStorage.getItem('token');
+        const btn = document.getElementById("mail");
+        btn.onclick= ()=>{
+            sendMail();
+        };
+        async function sendMail(){
+            await fetch('/mail',{
+                method:'POST',
+                headers:{
+                    "Authorization":`Bearer ${token}`,
+                }
+            });
+        }
+    </script>
+</body>
+</html>
