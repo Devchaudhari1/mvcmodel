@@ -9,6 +9,9 @@ const fs = require('fs');
 
 const upload= require('../middleware/upload.js');
 
+const uploadSmallVideo= require('../middleware/uploadSmallVideo.js');
+
+const uploadVideo = require('../middleware/uploadVideo.js');
 const authenticate= require('../middleware/authenticate.js');
 //Importing controllers
 const userController= require('../controllers/userController.js');
@@ -19,6 +22,11 @@ const merchController=require('../controllers/merchController.js');
 
 const authController=require('../controllers/authController.js');
 
+const mailController =require('../controllers/mailController.js');
+
+const videoController=require('../controllers/videoController.js');
+
+const vidController= require('../controllers/vidController.js');
 
 //Routes begin
 const apiUrl="mongodb://localhost:27017/images";
@@ -44,7 +52,7 @@ Route.get('/login',(req,res)=>{
 Route.post('/register',upload.none(),authController.register);
 
 Route.get('/register',(req,res) =>{
-    res.sendFile(path.join(__dirname,'../views','register.html'));});
+    res.sendFile(path.resolve(__dirname,'../views','register.html'));});
 
 
 
@@ -85,4 +93,24 @@ Route.get('/merch/image/:id' ,merchController.getMerchImage);
 Route.put('/merch/:id',merchController.updateMerch);
 
 Route.delete('/merchs/:id',authenticate ,merchController.deleteMerch);
+
+Route.post('/mail',authenticate , mailController.mailing );
+
+Route.get('/mail',(req,res)=>{
+res.sendFile(path.join(__dirname,'../views','mail.html'));
+});
+
+
+Route.get('/uploads', (req,res)=>{    
+    res.sendFile(path.join(__dirname,'../views','video.html'));
+});
+
+Route.post('/uploads',uploadVideo.single('video'),vidController.addVideo);
+
+Route.get('/uploads/videos',authenticate ,vidController.getVideos);
+
+Route.get('/uploads/:filename', vidController.getVideoById);
+
+
+
 module.exports = Route;
